@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Your Glossy Cart</h2>
+      <p>Keep your glow essentials ready for checkout.</p>
+    </div>
+
+    {% if not current_user %}
+    <div class="empty-state">
+      <p>Log in to add items to your cart. You can browse products anytime.</p>
+      <a class="btn btn-glossy" href="/login">Login</a>
+    </div>
+    {% endif %}
+
+    {% if items %}
+    <div class="cart-list">
+      {% for item in items %}
+      <div class="cart-item">
+        <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" />
+        <div class="cart-info">
+          <h5>{{ item.product.name }}</h5>
+          <p>{{ item.product.description }}</p>
+          <span class="price">₦{{ "%.2f"|format(item.product.price) }}</span>
+        </div>
+        <div class="cart-actions">
+          <form method="post" action="/cart/update/{{ item.id }}">
+            <input type="number" name="quantity" min="1" value="{{ item.quantity }}" class="form-control" />
+            <button class="btn btn-glossy-outline btn-sm" type="submit">Update</button>
+          </form>
+          <form method="post" action="/cart/remove/{{ item.id }}">
+            <button class="btn btn-glossy btn-sm" type="submit">Remove</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="cart-summary">
+      <h4>Total: ₦{{ "%.2f"|format(total) }}</h4>
+      <button class="btn btn-glossy" type="button" disabled>Checkout (Coming Soon)</button>
+    </div>
+    {% elif current_user %}
+    <div class="empty-state">Your cart is empty. Start shopping to add items.</div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

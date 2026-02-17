@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Admin Dashboard</h2>
+      <p>Monitor the glow experience at a glance.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-12 col-lg-6">
+        <div class="panel-card">
+          <h5>Recent Products</h5>
+          <ul class="list-unstyled">
+            {% for product in products %}
+            <li class="panel-row">
+              <span>{{ product.name }}</span>
+              <span class="price">₦{{ "%.2f"|format(product.price) }}</span>
+            </li>
+            {% else %}
+            <li>No products yet.</li>
+            {% endfor %}
+          </ul>
+          <a class="btn btn-glossy-outline" href="/admin/products">Manage Products</a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="panel-card">
+          <h5>Users</h5>
+          <ul class="list-unstyled">
+            {% for user in users[:5] %}
+            <li class="panel-row">
+              <span>{{ user.username }}</span>
+              <small>{{ user.email }}</small>
+            </li>
+            {% else %}
+            <li>No users yet.</li>
+            {% endfor %}
+          </ul>
+          <div class="tag">Orders: Placeholder</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

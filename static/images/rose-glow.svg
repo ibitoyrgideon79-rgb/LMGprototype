@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd1dc" />
+      <stop offset="100%" stop-color="#ff8fb5" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" rx="40" fill="url(#g)" />
+  <circle cx="450" cy="120" r="90" fill="rgba(255,255,255,0.4)" />
+  <text x="50" y="220" font-family="Poppins, Arial" font-size="36" fill="#8b2e5d">Rose Glow Perfume</text>
+</svg>

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="container hero-content">
+    <div class="hero-text">
+      <h1>We deliver premium skincare to you at your convenience</h1>
+      <p>Glow-enhancing cosmetics with glossy finishes, luxurious textures, and effortless radiance.</p>
+      <div class="hero-actions">
+        <a class="btn btn-glossy" href="/products">Shop Collection</a>
+        <a class="btn btn-glossy-outline" href="/register">Join the Glow</a>
+      </div>
+    </div>
+    <div class="hero-orb">
+      <div class="orb-core"></div>
+      <div class="orb-highlight"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Featured Picks</h2>
+      <p>Our most loved glossy essentials.</p>
+    </div>
+    <div class="row g-4">
+      {% for product in products %}
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="product-card">
+          <img src="{{ product.image_url }}" alt="{{ product.name }}" />
+          <div class="product-body">
+            <h5>{{ product.name }}</h5>
+            <p>{{ product.description }}</p>
+            <div class="product-footer">
+              <span class="price">₦{{ "%.2f"|format(product.price) }}</span>
+              {% if current_user %}
+              <form method="post" action="/cart/add/{{ product.id }}">
+                <button class="btn btn-glossy" type="submit">Add to Cart</button>
+              </form>
+              {% else %}
+              <a class="btn btn-glossy-outline" href="/login">Login to Add</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section reviews">
+  <div class="container">
+    <div class="section-header">
+      <h2>Glow Reviews</h2>
+      <p>Real feedback from our luminous community.</p>
+    </div>
+    <div class="row g-4">
+      {% for review in reviews %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="avatar"></div>
+            <div>
+              <h6>{{ review.user_name }}</h6>
+              <div class="stars">
+                {% for _ in range(review.rating) %}<span>?</span>{% endfor %}
+                {% for _ in range(5 - review.rating) %}<span class="muted">?</span>{% endfor %}
+              </div>
+            </div>
+          </div>
+          <p class="review-text">{{ review.comment }}</p>
+          <small>{{ review.created_at.strftime("%b %d, %Y") }}</small>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
